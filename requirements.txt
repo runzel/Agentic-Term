@@ -1,7 +1,0 @@
-streamlit
-requests
-langchain-ollama
-langchain-community
-langchain-text-splitters
-chromadb
-pypdf

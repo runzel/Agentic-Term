@@ -1,6 +1,6 @@
 import { Terminal } from './components/Terminal';
 import { AIAssistant } from './components/AIAssistant';
-import { TerminalSquare, Plus, Code2, Database, BrainCircuit, Settings, Activity } from 'lucide-react';
+import { TerminalSquare, Plus, Code2, Database, BrainCircuit, Settings, Activity, BookOpen } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { initDb } from './db';
 
@@ -88,6 +88,13 @@ function App() {
               title="Database & Credentials"
             >
               <Database size={20} />
+            </div>
+            <div
+              className={`p-2 rounded cursor-pointer transition-all ${activeSidebar === 'brain' ? 'bg-[#292e42] text-[var(--color-neon-green)] shadow-[0_0_10px_rgba(158,206,106,0.2)]' : 'text-[#565f89] hover:text-[#a9b1d6] hover:bg-[#1f2335]'}`}
+              onClick={() => setActiveSidebar('brain')}
+              title="Second Brain (RAG)"
+            >
+              <BookOpen size={20} />
             </div>
 
             <div className="flex-1"></div>

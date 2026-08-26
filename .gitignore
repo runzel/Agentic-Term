@@ -1,36 +1,24 @@
-# Python artifacts
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual Environment
-venv/
-env/
-
-# IDE settings
-.vscode/
-.idea/
-
-# Application Data
-.chroma_db/
-.cache/
+# Logs
+logs
 *.log
-*.txt
-!/requirements.txt
-*.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Temporary/Debug Scripts
-check_models.py
-diagnose.py
-fast_check.py
-final_verify.py
-pull_model.py
-test_inference.py
-test_langchain.py
-validate.py
-debug_simple.py
+node_modules
+dist
+dist-ssr
+*.local
 
-# Windows specific
-Thumbs.db
-Desktop.ini
-*.lnk
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
