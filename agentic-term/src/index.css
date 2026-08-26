@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-retro-bg: #1a1b26;
+  --color-retro-fg: #a9b1d6;
+  --color-neon-blue: #7aa2f7;
+  --color-neon-green: #9ece6a;
+  --color-neon-orange: #ff9e64;
+  --color-neon-pink: #f7768e;
+  --color-retro-black: #414868;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
