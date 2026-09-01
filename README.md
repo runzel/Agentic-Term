@@ -1,21 +1,39 @@
-# ▒░ Agentic Term ░▒
-> "Because a terminal should have a brain."
+# Agentic Term
 
-## [SYSTEM_STATUS: ONLINE]
-A native, cross-platform terminal app powered by Tauri, React, and Ghostty WASM.
-Designed with a retro neon pastel aesthetic, local RAG capabilities, and AI workflows.
+AI-powered cross-platform terminal built with Tauri and React. Agentic Term combines local RAG (Second Brain), configurable AI assistants, and workflow automation so developers can search local documentation, generate and run commands, and orchestrate repeatable tasks — all locally.
 
-## [FEATURES]
-- Ghostty-powered tabbed terminals
-- AI Buddy: Codex, Claude, and local Unsloth support
-- Second Brain: Local offline RAG for document search
+### Status
+SYSTEM_STATUS: ONLINE
+
+### Key features
+- Tabbed terminal sessions via Ghostty
+- AI Assistant (local & cloud models: Unsloth, Codex, Claude)
+- Second Brain: local offline document search (RAG)
 - Haxor Skills: AI-suggested executable workflows
-- Embedded SQLite for credential & state management
+- Embedded SQLite for local credential and state storage
 
-## [INIT]
+### Quick start
+1. Install dependencies:
+   ```bash
+   npm ci
+   ```
+2. Start the app (developer mode):
+   ```bash
+   npm run tauri:dev
+   ```
+   or, to build a production bundle:
+   ```bash
+   npm run tauri:build
+   ```
+
+### Configuration
+- Copy `.env.example` to `.env` and set any required API keys or local model endpoints.
+- See `src/utils/env.ts` for expected env vars.
+
+### Contributing
+Please open issues or pull requests for improvements. Run linters and type checks before committing:
 ```bash
-npm install
-npm run tauri dev
+npm run lint
+npm run typecheck
+npm test
 ```
-
-[EOF]

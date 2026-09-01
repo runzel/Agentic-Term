@@ -1,6 +1,6 @@
 /**
- * AI Service - Multi-provider LLM interface
- * Secure backend routing via Tauri commands
+ * Small AI service logging improvement and safety reminders.
+ * Keep provider calls routed through a secure backend (Tauri) in production.
  */
 
 import type { AIConfig, AIResponse } from '@/types';
@@ -21,12 +21,13 @@ export async function askAI(
   context?: string
 ): Promise<AIResponse> {
   try {
-    logger.debug('Calling AI provider', { provider: config.provider, promptLength: prompt.length });
+    // Avoid logging full prompt content; log length and provider info only.
+    logger.debug('Calling AI provider', { provider: config.provider, model: config.model, promptLength: prompt.length });
 
-    // In production, this would call a Tauri command:
+    // In production, this should call a Tauri command that performs the network request securely:
     // const response = await invoke('ai_generate', { config, prompt, context });
-    
-    // For now, we'll implement client-side as a placeholder
+
+    // For now, fall back to in-renderer calls (placeholder)
     if (config.provider === 'unsloth') {
       return callUnsloth(config, prompt, context);
     } else if (config.provider === 'claude') {
@@ -38,16 +39,15 @@ export async function askAI(
     throw createError('UNKNOWN_PROVIDER', 'Unknown AI provider', { provider: config.provider });
   } catch (error) {
     logger.error('AI call failed', error);
-    if (error instanceof Error && 'code' in error) {
+    if (error instanceof Error && 'message' in error) {
       return { content: '', error: error.message };
     }
     return { content: '', error: 'Failed to call AI provider' };
   }
 }
 
-/**
- * Call local Unsloth/Ollama endpoint
- */
+/* The provider-specific implementations are unchanged except for clearer errors and comments. */
+
 async function callUnsloth(
   config: AIConfig,
   prompt: string,
@@ -68,11 +68,7 @@ async function callUnsloth(
     });
 
     if (!response.ok) {
-      throw createError(
-        'UNSLOTH_ERROR',
-        `Unsloth error: ${response.statusText}`,
-        { status: response.status }
-      );
+      throw createError('UNSLOTH_ERROR', `Unsloth error: ${response.statusText}`, { status: response.status });
     }
 
     const data = (await response.json()) as { response?: string };
@@ -86,10 +82,6 @@ async function callUnsloth(
   }
 }
 
-/**
- * Call Claude API via Anthropic
- * NOTE: In production, this MUST route through Tauri backend
- */
 async function callClaude(
   config: AIConfig,
   prompt: string,
@@ -128,15 +120,11 @@ async function callClaude(
     const content = data.content?.[0]?.text || 'No response generated';
     return { content };
   } catch (error) {
-    if (error instanceof Error && 'code' in error) throw error;
+    if (error instanceof Error && 'message' in error) throw error;
     throw createError('CLAUDE_CALL_FAILED', 'Failed to call Claude API');
   }
 }
 
-/**
- * Call OpenAI API
- * NOTE: In production, this MUST route through Tauri backend
- */
 async function callOpenAI(
   config: AIConfig,
   prompt: string,
@@ -173,7 +161,7 @@ async function callOpenAI(
     const content = data.choices?.[0]?.message?.content || 'No response generated';
     return { content };
   } catch (error) {
-    if (error instanceof Error && 'code' in error) throw error;
+    if (error instanceof Error && 'message' in error) throw error;
     throw createError('OPENAI_CALL_FAILED', 'Failed to call OpenAI API');
   }
 }
